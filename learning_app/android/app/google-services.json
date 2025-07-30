@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1067733838888",
+    "project_id": "redquackerp",
+    "storage_bucket": "redquackerp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067733838888:android:a5131f87b2fe3e5743d91d",
+        "android_client_info": {
+          "package_name": "com.erp.redquack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzmqhUeYqlHVIts5SBXnbc0JCklx73RyM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,1 @@
+export 'deadline_entity.dart';
