@@ -16,14 +16,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Map<String, String> companyDetails = {};
+  late Map<String, String> userDetails = {};
 
   @override
   void initState() {
     super.initState();
     debugPrint('[INIT] HomeScreen initialized.');
     _fetchUser();
-    fetchCompanyDetails();
+    fetchUserDetails();
   }
 
   @override
@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
     debugPrint('[FETCH_USER] Firebase UID: $userId');
   }
 
-  Future<void> fetchCompanyDetails() async {
+  Future<void> fetchUserDetails() async {
     final firebaseUser = FirebaseAuth.instance.currentUser;
     final supabaseUser = Supabase.instance.client.auth.currentUser;
 
@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
       await _loadCompanyDetailsFromFirestore(firebaseUser.uid);
     } else if (supabaseUser != null) {
       debugPrint('[INFO] Auth via Supabase. UID: ${supabaseUser.id}');
-      await _loadCompanyDetailsFromSupabase(supabaseUser.id);
+      //await _loadCompanyDetailsFromSupabase(supabaseUser.id);
     } else {
       debugPrint('[ERROR] No user found in either Firebase or Supabase.');
     }
@@ -62,16 +62,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
       if (userDoc.exists && userDoc.data() != null) {
         final data = userDoc.data()!;
-        debugPrint('[FIRESTORE] Employer data: $data');
+        debugPrint('[FIRESTORE] user data: $data');
 
         setState(() {
-          companyDetails = {
-            'companyName': data['companyName'] ?? '',
-            'companyIndustry': data['companyIndustry'] ?? '',
-            'companyAddress': data['companyAddress'] ?? '',
+          userDetails = {
+            'username': data['username'] ?? '',
+            'first_name': data['first_name'] ?? '',
+            'last_name': data['last_name'] ?? '',
             'email': data['email'] ?? '',
-            'companyLogo': data['companyLogo'] ?? '',
-            'displayName': data['name'] ?? 'User',
+            'profileImage': data['profileImage'] ?? '',
+            'displayName': data['username'] ?? 'User',
           };
         });
       } else {
@@ -82,6 +82,8 @@ class _HomeScreenState extends State<HomeScreen> {
       debugPrint('[STACK] $stack');
     }
   }
+
+  /*
 
   Future<void> _loadCompanyDetailsFromSupabase(String userId) async {
     try {
@@ -112,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
       debugPrint('[FIRESTORE] Company document: $companyData');
 
       setState(() {
-        companyDetails = {
+        userDetails = {
           'companyName': companyData?['companyName'] ?? '',
           'companyIndustry': companyData?['companyIndustry'] ?? '',
           'companyAddress': companyData?['companyAddress'] ?? '',
@@ -126,11 +128,12 @@ class _HomeScreenState extends State<HomeScreen> {
       debugPrint('[STACK] $stack');
     }
   }
+  */
 
   @override
   Widget build(BuildContext context) {
     debugPrint(
-        '[BUILD] HomeScreen build triggered. companyDetails empty: ${companyDetails.isEmpty}');
+        '[BUILD] HomeScreen build triggered. userDetails empty: ${userDetails.isEmpty}');
 
     return Scaffold(
       appBar: AppBar(
@@ -188,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(width: 10),
             BlocBuilder<MyUserBloc, MyUserState>(
               builder: (context, state) {
-                String displayName = companyDetails['displayName'] ?? "User";
+                String displayName = userDetails['displayName'] ?? "User";
 
                 return Expanded(
                   child: Text(
@@ -215,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: companyDetails.isEmpty
+      body: userDetails.isEmpty
           ? const Center(child: CircularProgressIndicator())
           : MaleniaHomeScreen(
               onNavigate: widget.onNavigate,

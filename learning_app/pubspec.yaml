@@ -151,8 +151,6 @@ flutter:
     - assets/icons/
     - assets/animations/
     - assets/splash_logo/
-    - assets/videos/
-    - assets/audio/
     - assets/lottie/
     - assets/badges/
 
