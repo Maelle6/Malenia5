@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learning_app/blocs/my_user_bloc/my_user_bloc.dart';
+import 'package:learning_app/screens/MaleniaQuestions/question_malenia.dart';
 import 'package:learning_app/screens/Profile/profile_screen.dart';
+import 'package:learning_app/screens/chatbot/chatbot_screen.dart';
 import 'package:learning_app/screens/home/home_screen.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
@@ -93,7 +95,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
       HomeScreen(onNavigate: navigateToScreen),
       Container(),
       Container(),
-      Container(),
+      Malenia(onNavigate: navigateToScreen),
       ProfileScreen(onNavigate: navigateToScreen),
     ];
   }
